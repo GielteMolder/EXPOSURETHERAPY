@@ -49,19 +49,12 @@
             transform: scale(1.05);
         }
 
-        /* Fade effect voor manifesto */
-        .fade-text {
-            transition: opacity 0.5s ease;
-        }
+        /* AANGEPAST: Geen fade animatie meer, alleen status klassen */
         .hidden-text {
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
+            display: none; /* Gewoon helemaal weg */
         }
         .visible-text {
-            opacity: 1;
-            position: relative;
-            pointer-events: auto;
+            display: block; /* Gewoon er zijn */
         }
     </style>
 </head>
@@ -73,8 +66,8 @@
         <!-- KLIKBAAR GEBIED VOOR MANIFESTO -->
         <div class="z-10 cursor-pointer select-none max-w-2xl" onclick="toggleManifesto()">
             
-            <!-- DE STANDAARD TITEL -->
-            <div id="title-block" class="visible-text fade-text transition-all duration-500">
+            <!-- DE STANDAARD TITEL (Geen animatie klassen meer) -->
+            <div id="title-block" class="visible-text">
                 <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none hover:scale-105 transition-transform">
                     EXPOSURE<br>THERAPY
                 </h1>
@@ -83,8 +76,8 @@
                 </p>
             </div>
 
-            <!-- DE MANIFESTO TEKST (Verborgen tot klik) -->
-            <div id="manifesto-block" class="hidden-text fade-text transition-all duration-500 bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-xl border-4 border-white">
+            <!-- DE MANIFESTO TEKST (Verborgen tot klik, geen animatie) -->
+            <div id="manifesto-block" class="hidden-text bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-xl border-4 border-white">
                 <p class="text-lg md:text-xl font-bold leading-relaxed lowercase text-left">
                     "hallo!<br><br>
                     soms ben ik extreem ontevreden met de dingen die uit mijn vingers komen.<br>
@@ -175,7 +168,7 @@
         </footer>
     </section>
 
-    <!-- PRODUCT MODAL (NU MET EXPOSÉS) -->
+    <!-- PRODUCT MODAL (MET EXPOSÉS) -->
     <div id="product-modal" class="modal hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-sm justify-center items-center p-4">
         <div class="bg-white border-4 border-black w-full max-w-5xl max-h-[90vh] overflow-y-auto relative flex flex-col lg:flex-row">
             
@@ -196,7 +189,7 @@
                     </div>
                 </div>
 
-                <!-- EXPOSÉS SECTIE (VERPLAATST) -->
+                <!-- EXPOSÉS SECTIE -->
                 <div class="border-t-4 border-black pt-6">
                     <h3 class="text-lg font-black uppercase mb-4 underline decoration-2">EXPOSÉS <span id="comment-count" class="text-sm opacity-50">(0)</span></h3>
                     
@@ -262,20 +255,21 @@
     <script>
         lucide.createIcons();
 
-        // --- MANIFESTO LOGIC ---
+        // --- MANIFESTO LOGIC (NU DIRECT) ---
         function toggleManifesto() {
             const titleBlock = document.getElementById('title-block');
             const manifestoBlock = document.getElementById('manifesto-block');
 
+            // Check simpelweg of de title visible is
             if (titleBlock.classList.contains('visible-text')) {
-                // Verberg titel, toon manifesto
+                // Wissel naar manifesto
                 titleBlock.classList.remove('visible-text');
                 titleBlock.classList.add('hidden-text');
                 
                 manifestoBlock.classList.remove('hidden-text');
                 manifestoBlock.classList.add('visible-text');
             } else {
-                // Andersom
+                // Wissel terug naar titel
                 manifestoBlock.classList.remove('visible-text');
                 manifestoBlock.classList.add('hidden-text');
                 
@@ -294,7 +288,6 @@
         window.addEventListener('click', function(e) {
             const menu = document.getElementById('collection-menu');
             const button = document.querySelector('button[onclick="toggleCollectionMenu()"]');
-            // Controleer of de klik NIET op de knop en NIET in het menu was
             if (!button.contains(e.target) && !menu.contains(e.target)) {
                 menu.classList.add('hidden');
             }
@@ -319,7 +312,7 @@
         const commentCount = document.getElementById('comment-count');
         const commentInput = document.getElementById('comment-input');
 
-        // Fake database van comments (Nu ook met kritische geluiden!)
+        // Fake database van comments
         const commentsDB = {
             'two kids playing with sand on a beach; an attempt': [
                 { user: 'ANONIEM', text: 'Dit concept is echt sick.' },
@@ -362,7 +355,7 @@
 
         function renderComments() {
             commentList.innerHTML = ''; // Leegmaken
-            const comments = commentsDB[currentProductTitle] || []; // Haal comments op of lege lijst
+            const comments = commentsDB[currentProductTitle] || []; 
             
             commentCount.innerText = `(${comments.length})`;
 
@@ -381,7 +374,6 @@
             const text = commentInput.value.trim();
             if (!text) return;
 
-            // Voeg toe aan "database" (tijdelijk)
             if (!commentsDB[currentProductTitle]) {
                 commentsDB[currentProductTitle] = [];
             }
@@ -391,8 +383,8 @@
                 text: text
             });
 
-            commentInput.value = ''; // Veld leegmaken
-            renderComments(); // Opnieuw tonen
+            commentInput.value = ''; 
+            renderComments(); 
         }
 
         function closeProductModal() {
