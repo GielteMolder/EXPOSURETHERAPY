@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPOSURE THERAPY | Giel te Molder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+        }
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.flex {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Zorgt dat afbeeldingen niet vervormen */
+        .product-img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .group:hover .product-img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-[#FFEB3B] text-black antialiased no-scrollbar relative">
+
+    <!-- SECTIE 1: DE WELKOM PAGINA -->
+    <section id="welcome" class="h-screen w-full flex flex-col justify-center items-center relative p-6 border-b-4 border-black">
+        <div class="text-center space-y-4 z-10 flex flex-col items-center">
+            
+            <h1 class="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+                EXPOSURE<br>THERAPY
+            </h1>
+            
+            <p class="text-sm md:text-xl font-bold tracking-widest uppercase mt-4">
+                GIEL TE MOLDER
+            </p>
+        </div>
+
+        <div class="absolute bottom-10 cursor-pointer" onclick="scrollToShop()">
+            <p class="text-xs font-bold uppercase mb-2 text-center">Enter</p>
+            <i data-lucide="arrow-down" class="w-8 h-8 mx-auto animate-bounce-slow"></i>
+        </div>
+    </section>
+
+    <!-- SECTIE 2: DE SHIRTS -->
+    <section id="shop" class="min-h-screen w-full p-4 md:p-12 bg-white text-black">
+        
+        <!-- Header: Collectie Dropdown & Contact -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b-2 border-black pb-4 gap-4">
+            
+            <div class="relative group">
+                <label for="collection-select" class="block text-xs font-bold uppercase mb-1 opacity-60">Kies Collectie</label>
+                <div class="flex items-center">
+                    <select id="collection-select" class="appearance-none bg-transparent border-none p-0 pr-8 text-xl font-bold uppercase cursor-pointer focus:outline-none focus:underline">
+                        <option value="col1">Collectie 001</option>
+                        <option value="col2" disabled>Collectie 002 (Binnenkort)</option>
+                    </select>
+                    <!-- Pijl icoon -->
+                    <div class="pointer-events-none -ml-6 text-black">
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="openContactModal()" class="text-sm font-bold hover:underline uppercase">CONTACT</button>
+        </div>
+
+        <!-- COLLECTIE 1 GRID -->
+        <div id="col1" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <!-- Shirt 1: LICHT BLAUW -->
+            <!-- AANGEPAST: Juiste PNG (two kids...) hersteld -->
+            <div class="group cursor-pointer" onclick="openProductModal('two kids playing with sand on a beach; an attempt', 'Licht Blauw', '35.00', 'two kids playing with sand on a beach; an attempt.png', 'bg-blue-200')">
+                <div class="w-full aspect-[3/4] bg-blue-200 border-2 border-black mb-4 flex items-center justify-center relative overflow-hidden transition-colors">
+                    <img src="two kids playing with sand on a beach; an attempt.png" alt="Design" class="product-img">
+                    <div class="absolute top-2 left-2 bg-blue-100 text-black border border-black px-2 py-1 text-xs font-bold uppercase">LICHT BLAUW</div>
+                </div>
+                <div class="text-center px-2">
+                    <h3 class="font-bold text-sm uppercase group-hover:underline leading-tight">two kids playing with sand on a beach; an attempt</h3>
+                </div>
+            </div>
+
+            <!-- Shirt 1: ROZE -->
+            <!-- AANGEPAST: Juiste PNG (two kids...) hersteld -->
+            <div class="group cursor-pointer" onclick="openProductModal('two kids playing with sand on a beach; an attempt', 'Roze', '35.00', 'two kids playing with sand on a beach; an attempt.png', 'bg-pink-200')">
+                <div class="w-full aspect-[3/4] bg-pink-200 border-2 border-black mb-4 flex items-center justify-center relative overflow-hidden transition-colors">
+                    <img src="two kids playing with sand on a beach; an attempt.png" alt="Design" class="product-img">
+                    <div class="absolute top-2 left-2 bg-pink-100 text-black border border-black px-2 py-1 text-xs font-bold uppercase">ROZE</div>
+                </div>
+                <div class="text-center px-2">
+                    <h3 class="font-bold text-sm uppercase group-hover:underline leading-tight">two kids playing with sand on a beach; an attempt</h3>
+                </div>
+            </div>
+
+            <!-- Shirt 2: ZWART -->
+            <!-- AANGEPAST: Juiste PNG (S.png) hersteld -->
+            <div class="group cursor-pointer" onclick="openProductModal('triangleman surfing on the waves of abstraction', 'Zwart', '35.00', 'S.png', 'bg-black')">
+                <div class="w-full aspect-[3/4] bg-black border-2 border-black mb-4 flex items-center justify-center relative overflow-hidden transition-colors">
+                    <img src="S.png" alt="Design" class="product-img"> 
+                    <div class="absolute top-2 left-2 bg-white text-black px-2 py-1 text-xs font-bold uppercase">ZWART</div>
+                </div>
+                <div class="text-center px-2">
+                    <h3 class="font-bold text-sm uppercase group-hover:underline leading-tight">triangleman surfing on the waves of abstraction</h3>
+                </div>
+            </div>
+
+            <!-- Shirt 2: OFF-WHITE -->
+            <!-- AANGEPAST: Juiste PNG (S.png) hersteld -->
+            <div class="group cursor-pointer" onclick="openProductModal('triangleman surfing on the waves of abstraction', 'Off-White', '35.00', 'S.png', 'bg-gray-300')">
+                <div class="w-full aspect-[3/4] bg-gray-300 border-2 border-black mb-4 flex items-center justify-center relative overflow-hidden transition-colors">
+                    <img src="S.png" alt="Design" class="product-img">
+                    <div class="absolute top-2 left-2 bg-white border border-black text-black px-2 py-1 text-xs font-bold uppercase">OFF-WHITE</div>
+                </div>
+                <div class="text-center px-2">
+                    <h3 class="font-bold text-sm uppercase group-hover:underline leading-tight">triangleman surfing on the waves of abstraction</h3>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-24 border-t-2 border-black pt-8 flex flex-col md:flex-row justify-between text-xs font-bold uppercase">
+            <div>&copy; 2026 Giel te Molder</div>
+            <div class="mt-2 md:mt-0">Nijmegen, Nederland</div>
+            <div class="mt-2 md:mt-0 cursor-pointer hover:underline" onclick="window.scrollTo(0,0)">Terug naar boven</div>
+        </footer>
+    </section>
+
+    <!-- PRODUCT POPUP MODAL -->
+    <div id="product-modal" class="modal hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm justify-center items-center p-4">
+        <div class="bg-white border-4 border-black w-full max-w-4xl max-h-[90vh] overflow-y-auto relative flex flex-col md:flex-row">
+            
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 bg-black text-white w-8 h-8 flex items-center justify-center font-bold hover:bg-[#FFEB3B] hover:text-black border border-transparent hover:border-black transition-colors">X</button>
+
+            <!-- Foto's in Modal -->
+            <div class="w-full md:w-2/3 bg-gray-100 p-8 grid grid-cols-1 md:grid-cols-2 gap-4 border-b-4 md:border-b-0 md:border-r-4 border-black">
+                <!-- Voorkant -->
+                <div id="modal-front-bg" class="aspect-[3/4] border-2 border-black flex flex-col items-center justify-center relative p-4 transition-colors duration-300">
+                    <img id="modal-img-front" src="" class="max-w-full max-h-full object-contain">
+                    <span class="text-xs font-bold uppercase absolute bottom-2 bg-white px-1 text-black">Voorkant</span>
+                </div>
+                <!-- Achterkant -->
+                <div id="modal-back-bg" class="aspect-[3/4] border-2 border-black flex flex-col items-center justify-center relative p-4 transition-colors duration-300">
+                    <img id="modal-img-back" src="" class="max-w-full max-h-full object-contain opacity-50">
+                    <span class="text-xs font-bold uppercase absolute bottom-2 bg-white px-1 text-black">Achterkant</span>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="w-full md:w-1/3 p-8 flex flex-col justify-between bg-[#FFEB3B]">
+                <div>
+                    <h2 id="modal-title" class="text-2xl font-black uppercase mb-2 leading-tight">TITEL</h2>
+                    <p id="modal-color" class="text-sm font-bold uppercase mb-4 opacity-70">KLEUR: <span>-</span></p>
+                    <p id="modal-price" class="text-xl font-bold mb-6">€00.00</p>
+                    
+                    <div class="space-y-4 text-sm font-bold">
+                        <p>100% KATOEN<br>HANDGEDRUKT IN NIJMEGEN</p>
+                        <p class="text-xs font-normal">Beschikbare maten: S, M, L, XL</p>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <p class="text-xs uppercase mb-2 font-bold">Interesse?</p>
+                    <a id="mail-btn" href="#" class="block w-full bg-black text-white text-center py-4 font-bold uppercase border-2 border-transparent hover:bg-white hover:text-black hover:border-black transition-colors">
+                        Bestel via Email
+                    </a>
+                    <p class="text-[10px] mt-2 text-center opacity-70">Klikken opent je mail programma</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT POPUP MODAL -->
+    <div id="contact-modal" class="modal hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md justify-center items-center p-4">
+        <div class="bg-[#FFEB3B] border-4 border-white w-full max-w-lg p-8 relative text-center">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 bg-black text-white w-8 h-8 flex items-center justify-center font-bold hover:bg-white hover:text-black transition-colors">X</button>
+            <h2 class="text-4xl font-black uppercase mb-8 border-b-4 border-black pb-4 inline-block">CONTACT</h2>
+            <div class="space-y-8 text-lg font-bold uppercase tracking-wider">
+                <div><p class="text-xs mb-1 opacity-70">Telefoon / WhatsApp</p><a href="tel:0613447336" class="hover:underline text-2xl">06-13447336</a></div>
+                <div><p class="text-xs mb-1 opacity-70">Email</p><a href="mailto:gielmolder@gmail.com" class="hover:underline text-xl break-all">gielmolder@gmail.com</a></div>
+                <div class="pt-4 text-sm normal-case font-normal"><p>Heb je vragen over een maat of wil je gewoon even hoi zeggen?</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function scrollToShop() {
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        const prodModal = document.getElementById('product-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalColor = document.getElementById('modal-color').querySelector('span');
+        const modalPrice = document.getElementById('modal-price');
+        const modalImgFront = document.getElementById('modal-img-front');
+        const modalImgBack = document.getElementById('modal-img-back');
+        const modalFrontBg = document.getElementById('modal-front-bg');
+        const modalBackBg = document.getElementById('modal-back-bg');
+        const mailBtn = document.getElementById('mail-btn');
+
+        // AANGEPAST: Nieuwe parameter bgClass
+        function openProductModal(title, color, price, imgSrc, bgClass) {
+            modalTitle.innerText = title;
+            modalColor.innerText = color;
+            modalPrice.innerText = '€' + price;
+            
+            modalImgFront.src = imgSrc;
+            modalImgBack.src = imgSrc;
+
+            // Achtergrondkleur instellen
+            // We resetten de className en bouwen hem opnieuw op om conflicten te voorkomen
+            const baseClasses = "aspect-[3/4] border-2 border-black flex flex-col items-center justify-center relative p-4 transition-colors duration-300 ";
+            modalFrontBg.className = baseClasses + bgClass;
+            modalBackBg.className = baseClasses + bgClass;
+
+            const subject = "Bestelling: " + title + " (" + color + ")";
+            const body = "Hoi Giel,%0D%0A%0D%0AIk wil graag het volgende bestellen:%0D%0AProduct: " + title + "%0D%0AKleur: " + color + "%0D%0AMaat: [S/M/L/XL]%0D%0A%0D%0AMijn gegevens:%0D%0ANaam:%0D%0AAdres:";
+            mailBtn.href = "mailto:gielmolder@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + body;
+
+            prodModal.classList.remove('hidden');
+            prodModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            prodModal.classList.add('hidden');
+            prodModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        const contactModal = document.getElementById('contact-modal');
+        function openContactModal() {
+            contactModal.classList.remove('hidden');
+            contactModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeContactModal() {
+            contactModal.classList.add('hidden');
+            contactModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == prodModal) closeProductModal();
+            if (event.target == contactModal) closeContactModal();
+        }
+    </script>
+</body>
+</html>
