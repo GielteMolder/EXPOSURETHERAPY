@@ -11,7 +11,7 @@
         /* --- CORE STYLING --- */
         body { 
             font-family: 'Courier New', Courier, monospace; 
-            /* AANGEPAST: Strakke zwarte pijl als cursor */
+            /* Strakke zwarte pijl als cursor */
             cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2V18L6.5 13.5L11 22L14 20.5L9.5 12L16 12L2 2Z' fill='black' stroke='white' stroke-width='1'/%3E%3C/svg%3E"), auto;
         }
 
@@ -79,7 +79,8 @@
                 </h1>
                 <p class="text-sm md:text-xl font-bold tracking-[0.3em] uppercase mt-6">GIEL TE MOLDER</p>
             </div>
-            <div id="manifesto-block" class="hidden-text bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] border-4 border-white transition-all">
+            <!-- AANGEPAST: Shadow is nu zwart (rgba(0,0,0,1)) -->
+            <div id="manifesto-block" class="hidden-text bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-white transition-all">
                 <p class="text-lg md:text-xl font-bold leading-relaxed lowercase text-left">
                     "hallo!<br><br>
                     soms ben ik een beetje ontevreden met de dingen die uit mijn vingers komen.<br>
@@ -134,8 +135,8 @@
     <!-- === PRODUCT MODAL === -->
     <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
         
-        <!-- Modal Container -->
-        <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible" style="max-height: 90vh;">
+        <!-- Modal Container: overflow-visible voor de zoom -->
+        <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]" style="max-height: 90vh;">
             
             <!-- Header (Titel & Knoppen) -->
             <div class="flex justify-between items-center p-3 md:p-4 border-b-4 border-black bg-white z-30 gap-4 overflow-hidden relative shrink-0">
@@ -171,7 +172,7 @@
 
     <!-- === CONTACT MODAL === -->
     <div id="contact-modal" class="modal fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex justify-center items-center p-4 text-center">
-        <div class="bg-[#FFEB3B] border-4 border-white w-full max-w-lg p-12 relative shadow-[15px_15px_0px_0px_rgba(50,50,50,1)]">
+        <div class="bg-[#FFEB3B] border-4 border-white w-full max-w-lg p-12 relative shadow-[15px_15px_0px_0px_rgba(0,0,0,1)]">
             <button onclick="closeContactModal()" class="absolute top-4 right-4 bg-black text-white w-8 h-8 flex items-center justify-center font-bold hover:rotate-90 transition-transform">X</button>
             <h2 class="text-4xl font-black uppercase mb-12 tracking-tighter underline decoration-4 decoration-black">CONTACT</h2>
             <div class="space-y-12 font-bold uppercase tracking-widest text-black">
@@ -181,7 +182,7 @@
                 </div>
                 <div class="group">
                     <p class="text-[10px] opacity-60 mb-2 group-hover:opacity-100 transition-opacity">Email</p>
-                    <a href="mailto:gielmolder@gmail.com?subject=Hoi%20Giel%20(dis%20wassup)&body=Hola%20Giel%2C%0A%0A%5Bdit%20is%20wassup%5D%0A%0AGroenten%2C%0A%0A%5Buwen%20naam%5D" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
+                    <a href="mailto:gielmolder@gmail.com?subject=Hoi%20Giel%20(via%20site)&body=Hola%20Giel%2C%0A%0A%5Bdit%20is%20wassup%5D%0A%0AGroenten%2C%0A%0A%5Buwen%20naam%5D" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -196,20 +197,20 @@
             {
                 id: 101,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Sky Blue",
+                kleur: "Light Blue",
                 prijs: "35.00",
-                bgClass: "bg-[#87CEEB]", // Sky Blue
-                modalBgClass: "bg-[#C48793]", // Contrast: Mauve
+                bgClass: "bg-[#B0E0E6]", // Light Blue
+                modalBgClass: "bg-[#FFB6C1]", // Contrast: Light Pink
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "kids.png"
             },
             {
                 id: 102,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Mauve Roze",
+                kleur: "Light Pink",
                 prijs: "35.00",
-                bgClass: "bg-[#C48793]", // Mauve Roze
-                modalBgClass: "bg-[#87CEEB]", // Contrast: Sky Blue
+                bgClass: "bg-[#FFB6C1]", // Light Pink
+                modalBgClass: "bg-[#B0E0E6]", // Contrast: Light Blue
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "kids.png"
             },
@@ -219,16 +220,16 @@
                 kleur: "Antraciet",
                 prijs: "35.00",
                 bgClass: "bg-[#2E2E2E]", // Antraciet
-                modalBgClass: "bg-[#F7F4E9]", // Contrast: Natuurwit
+                modalBgClass: "bg-[#D2B48C]", // Contrast: Sand
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "S.png"
             },
             {
                 id: 104,
                 titel: "triangleman surfing on the waves of abstraction",
-                kleur: "Natuurwit",
+                kleur: "Sand",
                 prijs: "35.00",
-                bgClass: "bg-[#F7F4E9]", // Natuurwit
+                bgClass: "bg-[#D2B48C]", // Sand
                 modalBgClass: "bg-[#2E2E2E]", // Contrast: Antraciet
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "S.png"
@@ -241,8 +242,8 @@
                 titel: "coming soon?",
                 kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
-                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
+                bgClass: "bg-[#E5E5E5]", 
+                modalBgClass: "bg-[#A3A3A3]", 
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
@@ -251,8 +252,8 @@
                 titel: "coming soon?",
                 kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
-                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
+                bgClass: "bg-[#E5E5E5]", 
+                modalBgClass: "bg-[#A3A3A3]", 
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
@@ -261,8 +262,8 @@
                 titel: "coming soon?",
                 kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
-                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
+                bgClass: "bg-[#E5E5E5]", 
+                modalBgClass: "bg-[#A3A3A3]", 
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
@@ -271,8 +272,8 @@
                 titel: "coming soon?",
                 kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
-                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
+                bgClass: "bg-[#E5E5E5]", 
+                modalBgClass: "bg-[#A3A3A3]", 
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             }
