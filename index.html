@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl" class="scroll-smooth">
+<html lang="nl" class="scroll-smooth no-scrollbar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,7 +134,7 @@
     <!-- === PRODUCT MODAL === -->
     <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
         
-        <!-- Modal Container: AANGEPAST: Gele shadow weggehaald, enkel border-4 border-black -->
+        <!-- Modal Container -->
         <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible" style="max-height: 90vh;">
             
             <!-- Header (Titel & Knoppen) -->
@@ -150,13 +150,12 @@
                 </div>
             </div>
 
-            <!-- Content Area: no-scrollbar maar wel scrollbaar indien nodig -->
+            <!-- Content Area -->
             <div id="modal-images-wrapper" class="flex-grow w-full p-4 overflow-y-auto no-scrollbar transition-colors duration-300 relative z-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full min-h-[400px] items-center">
                     
                     <!-- Voorkant Wrapper -->
                     <div id="modal-front-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 cursor-crosshair group">
-                        <!-- Plaatje heeft hoge z-index bij hover om over ALLES heen te vallen -->
                         <img id="modal-img-front" src="" class="w-full h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-[100] hover:scale-[1.8]">
                     </div>
                     
@@ -182,7 +181,8 @@
                 </div>
                 <div class="group">
                     <p class="text-[10px] opacity-60 mb-2 group-hover:opacity-100 transition-opacity">Email</p>
-                    <a href="mailto:gielmolder@gmail.com" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
+                    <!-- AANGEPAST: href bevat nu de gevraagde mail tekst -->
+                    <a href="mailto:gielmolder@gmail.com?subject=Hoi%20Giel%20(via%20site)&body=Hola%20Giel%2C%0A%0A%5Bdit%20is%20wassup%5D%0A%0AGroenten%2C%0A%0A%5Buwen%20naam%5D" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -197,40 +197,40 @@
             {
                 id: 101,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Licht Blauw",
-                prijs: "30.00",
-                bgClass: "bg-blue-200", 
-                modalBgClass: "bg-pink-200", 
+                kleur: "Sky Blue",
+                prijs: "35.00",
+                bgClass: "bg-[#87CEEB]", // Sky Blue
+                modalBgClass: "bg-[#C48793]", // Contrast: Mauve
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "kids.png"
             },
             {
                 id: 102,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Roze",
-                prijs: "30.00",
-                bgClass: "bg-pink-200",
-                modalBgClass: "bg-blue-200",
+                kleur: "Mauve Roze",
+                prijs: "35.00",
+                bgClass: "bg-[#C48793]", // Mauve Roze
+                modalBgClass: "bg-[#87CEEB]", // Contrast: Sky Blue
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "kids.png"
             },
             {
                 id: 103,
-                titel: "triangleman; surfing on the waves of abstraction",
-                kleur: "Zwart",
-                prijs: "30.00",
-                bgClass: "bg-black",
-                modalBgClass: "bg-gray-100",
+                titel: "triangleman surfing on the waves of abstraction",
+                kleur: "Antraciet",
+                prijs: "35.00",
+                bgClass: "bg-[#2E2E2E]", // Antraciet
+                modalBgClass: "bg-[#F7F4E9]", // Contrast: Natuurwit
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "S.png"
             },
             {
                 id: 104,
-                titel: "triangleman; surfing on the waves of abstraction",
-                kleur: "Off-White",
-                prijs: "30.00",
-                bgClass: "bg-gray-100",
-                modalBgClass: "bg-black",
+                titel: "triangleman surfing on the waves of abstraction",
+                kleur: "Natuurwit",
+                prijs: "35.00",
+                bgClass: "bg-[#F7F4E9]", // Natuurwit
+                modalBgClass: "bg-[#2E2E2E]", // Contrast: Antraciet
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "S.png"
             }
@@ -240,40 +240,40 @@
             {
                 id: 201,
                 titel: "coming soon?",
-                kleur: "Rood",
+                kleur: "Geel",
                 prijs: "35.00",
-                bgClass: "bg-red-200", 
-                modalBgClass: "bg-green-200",
+                bgClass: "bg-[#FFEB3B]", // GEEL
+                modalBgClass: "bg-[#FFEB3B]",
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 202,
                 titel: "coming soon?",
-                kleur: "Groen",
+                kleur: "Geel",
                 prijs: "35.00",
-                bgClass: "bg-green-200",
-                modalBgClass: "bg-red-200",
+                bgClass: "bg-[#FFEB3B]", // GEEL
+                modalBgClass: "bg-[#FFEB3B]",
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 203,
                 titel: "coming soon?",
-                kleur: "Paars",
-                prijs: "40.00",
-                bgClass: "bg-purple-200",
-                modalBgClass: "bg-yellow-200",
+                kleur: "Geel",
+                prijs: "35.00",
+                bgClass: "bg-[#FFEB3B]", // GEEL
+                modalBgClass: "bg-[#FFEB3B]",
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 204,
                 titel: "coming soon?",
-                kleur: "Grijs",
-                prijs: "40.00",
-                bgClass: "bg-gray-400",
-                modalBgClass: "bg-orange-200",
+                kleur: "Geel",
+                prijs: "35.00",
+                bgClass: "bg-[#FFEB3B]", // GEEL
+                modalBgClass: "bg-[#FFEB3B]",
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             }
@@ -328,7 +328,8 @@
             document.getElementById('modal-images-wrapper').className = `${baseModalWrapperClass} ${product.modalBgClass}`;
             
             const subject = encodeURIComponent(`Interesse: ${product.titel} [${product.kleur}]`);
-            const body = encodeURIComponent(`Hoi Giel,\n\nIk wil dit stuk graag claimen:\n\nWerk: ${product.titel}\nKleur: ${product.kleur}\nMaat: [S/M/L/XL]\n\nVoorstel:`);
+            // AANGEPAST: Nieuwe mail tekst voor product aanvragen
+            const body = encodeURIComponent(`Hola Giel,\n\nIk wil dit stuk graag claimen:\nWerk: ${product.titel}\nKleur: ${product.kleur}\nMaat: [S/M/L/XL]\nVoorstel:\n\nGroenten,\n\n[uwen naam]`);
             document.getElementById('mail-btn').href = `mailto:gielmolder@gmail.com?subject=${subject}&body=${body}`;
 
             const modal = document.getElementById('product-modal');
@@ -353,7 +354,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // ZOOM FUNCTIE: Werkt nu via JS om transform origin te bepalen
         function setupZoom(containerId, imgId) {
             const container = document.getElementById(containerId);
             const img = document.getElementById(imgId);
@@ -366,7 +366,6 @@
                 const y = e.clientY - rect.top;
                 
                 img.style.transformOrigin = `${x}px ${y}px`;
-                // Scale wordt ook via CSS hover geregeld, maar JS update origin
                 img.style.transform = "scale(2.2)"; 
             });
 
@@ -421,4 +420,3 @@
     </script>
 </body>
 </html>
-
