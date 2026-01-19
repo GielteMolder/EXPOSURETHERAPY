@@ -181,8 +181,7 @@
                 </div>
                 <div class="group">
                     <p class="text-[10px] opacity-60 mb-2 group-hover:opacity-100 transition-opacity">Email</p>
-                    <!-- AANGEPAST: href bevat nu de gevraagde mail tekst -->
-                    <a href="mailto:gielmolder@gmail.com?subject=Hoi%20Giel%20(via%20site)&body=Hola%20Giel%2C%0A%0A%5Bdit%20is%20wassup%5D%0A%0AGroenten%2C%0A%0A%5Buwen%20naam%5D" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
+                    <a href="mailto:gielmolder@gmail.com?subject=Hoi%20Giel%20(dis%20wassup)&body=Hola%20Giel%2C%0A%0A%5Bdit%20is%20wassup%5D%0A%0AGroenten%2C%0A%0A%5Buwen%20naam%5D" class="text-xl md:text-2xl hover:italic break-all tracking-tighter lowercase border-b-2 border-transparent hover:border-black">gielmolder@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -240,40 +239,40 @@
             {
                 id: 201,
                 titel: "coming soon?",
-                kleur: "Geel",
+                kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#FFEB3B]", // GEEL
-                modalBgClass: "bg-[#FFEB3B]",
+                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
+                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 202,
                 titel: "coming soon?",
-                kleur: "Geel",
+                kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#FFEB3B]", // GEEL
-                modalBgClass: "bg-[#FFEB3B]",
+                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
+                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 203,
                 titel: "coming soon?",
-                kleur: "Geel",
+                kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#FFEB3B]", // GEEL
-                modalBgClass: "bg-[#FFEB3B]",
+                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
+                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             },
             {
                 id: 204,
                 titel: "coming soon?",
-                kleur: "Geel",
+                kleur: "Grijs",
                 prijs: "35.00",
-                bgClass: "bg-[#FFEB3B]", // GEEL
-                modalBgClass: "bg-[#FFEB3B]",
+                bgClass: "bg-[#E5E5E5]", // Lichtgrijs
+                modalBgClass: "bg-[#A3A3A3]", // Donkergrijs contrast
                 afbeeldingVoorkant: "EXPOTHERAPY.png",
                 afbeeldingAchterkant: "EXPOTHERAPY.png"
             }
@@ -328,7 +327,6 @@
             document.getElementById('modal-images-wrapper').className = `${baseModalWrapperClass} ${product.modalBgClass}`;
             
             const subject = encodeURIComponent(`Interesse: ${product.titel} [${product.kleur}]`);
-            // AANGEPAST: Nieuwe mail tekst voor product aanvragen
             const body = encodeURIComponent(`Hola Giel,\n\nIk wil dit stuk graag claimen:\nWerk: ${product.titel}\nKleur: ${product.kleur}\nMaat: [S/M/L/XL]\nVoorstel:\n\nGroenten,\n\n[uwen naam]`);
             document.getElementById('mail-btn').href = `mailto:gielmolder@gmail.com?subject=${subject}&body=${body}`;
 
