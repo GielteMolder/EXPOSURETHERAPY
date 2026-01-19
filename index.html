@@ -11,11 +11,14 @@
         /* --- CORE STYLING --- */
         body { 
             font-family: 'Courier New', Courier, monospace; 
-            /* Minimalistische Crosshair Cursor */
-            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 5V11H5V13H11V19H13V13H19V11H13V5H11Z' fill='black'/%3E%3C/svg%3E") 12 12, auto;
+            /* AANGEPAST: Strakke zwarte pijl als cursor */
+            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2V18L6.5 13.5L11 22L14 20.5L9.5 12L16 12L2 2Z' fill='black' stroke='white' stroke-width='1'/%3E%3C/svg%3E"), auto;
         }
 
-        a, button, .cursor-pointer { cursor: pointer; }
+        a, button, .cursor-pointer { 
+            /* Handje cursor voor interactie */
+            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 2V14H6V16H4V20H6V22H18V20H20V16H18V14H15V2H9ZM11 4H13V14H15V16H18V20H6V16H9V14H11V4Z' fill='black' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E"), pointer;
+        }
         
         /* Verberg scrollbars maar behoud functionaliteit */
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -131,8 +134,8 @@
     <!-- === PRODUCT MODAL === -->
     <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
         
-        <!-- Modal Container: overflow-visible is cruciaal voor de zoom out-of-bounds -->
-        <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible shadow-[10px_10px_0px_0px_rgba(255,235,59,1)]" style="max-height: 90vh;">
+        <!-- Modal Container: AANGEPAST: Gele shadow weggehaald, enkel border-4 border-black -->
+        <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible" style="max-height: 90vh;">
             
             <!-- Header (Titel & Knoppen) -->
             <div class="flex justify-between items-center p-3 md:p-4 border-b-4 border-black bg-white z-30 gap-4 overflow-hidden relative shrink-0">
@@ -418,5 +421,3 @@
     </script>
 </body>
 </html>
-
-
