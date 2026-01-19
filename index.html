@@ -9,7 +9,16 @@
     
     <style>
         /* --- STYLING & ANIMATIES --- */
-        body { font-family: 'Courier New', Courier, monospace; }
+        body { 
+            font-family: 'Courier New', Courier, monospace; 
+            /* AANGEPAST: Minimalistisch Zwart Kruisje als cursor */
+            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 5V11H5V13H11V19H13V13H19V11H13V5H11Z' fill='black'/%3E%3C/svg%3E") 12 12, auto;
+        }
+
+        /* Pointer Cursor (Handje maar dan strakker) voor links/buttons */
+        a, button, .cursor-pointer {
+            cursor: pointer;
+        }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -26,19 +35,34 @@
 
         /* Product Hover Effect */
         .product-img {
-            max-width: 85%; max-height: 85%;
-            object-fit: contain;
+            width: 100%; height: 100%;
+            object-fit: contain; 
             transition: transform 0.4s ease-in-out;
         }
-        .group:hover .product-img { transform: scale(1.05) rotate(2deg); }
+        .group:hover .product-img { transform: scale(1.02) rotate(1deg); }
 
         .hidden-text { display: none; }
         .visible-text { display: block; }
 
+        /* Marquee Animation voor Titel */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+        /* Stop animatie bij hover */
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
         /* Ruis overlay (Texture) */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 50; opacity: 0.06;
+            pointer-events: none; z-index: 40; opacity: 0.06;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
     </style>
@@ -86,7 +110,6 @@
     <section id="shop" class="min-h-screen w-full p-4 md:p-12 bg-white text-black">
         
         <!-- HEADER SHOP -->
-        <!-- AANGEPAST: sticky classes verwijderd zodat de balk niet blijft plakken -->
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b-2 border-black pb-4 gap-4">
             <div class="relative group">
                 <button onclick="toggleCollectionMenu()" class="flex items-center gap-2 text-xl font-bold uppercase hover:underline focus:outline-none">
@@ -118,46 +141,49 @@
     </section>
 
     <!-- === PRODUCT MODAL === -->
-    <div id="product-modal" class="modal fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
-        <div class="bg-white border-4 border-black w-full max-w-5xl max-h-[85vh] overflow-hidden relative flex flex-col lg:flex-row shadow-[10px_10px_0px_0px_rgba(255,235,59,1)]">
+    <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
+        <!-- AANGEPAST: Shadow weggehaald, gewoon border-4 border-black -->
+        <div class="bg-white border-4 border-black w-full max-w-4xl max-h-[90vh] flex flex-col">
             
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-50 bg-black text-white w-10 h-10 flex items-center justify-center font-bold hover:bg-[#FFEB3B] hover:text-black transition-colors text-xl border-2 border-white hover:border-black">X</button>
-
-            <!-- Linker kolom: Plaatjes -->
-            <!-- AANGEPAST: ID toegevoegd en bg-white verwijderd voor dynamische kleur -->
-            <div id="modal-images-wrapper" class="w-full lg:w-2/3 p-6 md:p-12 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-y-auto transition-colors duration-300">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-full items-center">
-                    <!-- Voorkant -->
-                    <div id="modal-front-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 overflow-hidden cursor-crosshair">
-                        <img id="modal-img-front" src="" class="max-w-full max-h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center">
-                    </div>
-                    <!-- Achterkant -->
-                    <div id="modal-back-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 overflow-hidden cursor-crosshair">
-                        <img id="modal-img-back" src="" class="max-w-full max-h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center opacity-90">
-                    </div>
+            <!-- HEADER: Titel + Button + Close -->
+            <div class="flex justify-between items-center p-3 md:p-4 border-b-4 border-black bg-white z-10 gap-4 overflow-hidden relative">
+                <!-- Titel Wrapper (Marquee) -->
+                <div class="flex-1 overflow-hidden relative h-8">
+                    <h2 id="modal-title" class="text-lg md:text-2xl font-black uppercase absolute whitespace-nowrap animate-marquee">TITEL</h2>
+                </div>
+                
+                <!-- Actie knoppen -->
+                <div class="flex items-center gap-3 shrink-0 z-20 bg-white pl-2">
+                    <!-- AANGEPAST: Glitch weggehaald, simpele hover -->
+                    <a id="mail-btn" href="#" class="bg-black text-white px-3 py-2 md:px-4 md:py-2 text-xs md:text-sm font-bold uppercase tracking-widest border-2 border-black hover:bg-white hover:text-black transition-all">
+                        EXPOSE YOURSELF
+                    </a>
+                    
+                    <button onclick="closeProductModal()" class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center font-bold hover:bg-black hover:text-white transition-colors text-lg border-2 border-black">X</button>
                 </div>
             </div>
 
-            <!-- Rechter kolom: Info -->
-            <div class="w-full lg:w-1/3 p-8 pt-20 lg:pt-8 flex flex-col justify-center bg-[#FFEB3B] overflow-y-auto relative text-center lg:text-left">
-                
-                <!-- TITEL -->
-                <div class="mb-8 lg:pr-12">
-                    <h2 id="modal-title" class="text-3xl md:text-5xl font-black uppercase leading-[0.9] tracking-tighter break-words">TITEL</h2>
-                </div>
-                
-                <!-- KNOP -->
-                <div>
-                    <a id="mail-btn" href="#" class="block w-full bg-black text-white text-center py-5 font-bold uppercase tracking-[0.2em] border-2 border-black hover:bg-white hover:text-black hover:translate-x-1 hover:translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] hover:shadow-none text-sm md:text-base">
-                        CONTACT EXPOSEUR
-                    </a>
+            <!-- MIDDEN: Plaatjes -->
+            <!-- AANGEPAST: class 'no-scrollbar' toegevoegd zodat de scrollbalk onzichtbaar is -->
+            <div id="modal-images-wrapper" class="flex-grow w-full p-4 overflow-y-auto no-scrollbar transition-colors duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full min-h-[300px]">
+                    <!-- Voorkant -->
+                    <!-- AANGEPAST: overflow-hidden WEGGEHAALD, z-index bij hover toegevoegd -->
+                    <div id="modal-front-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 cursor-crosshair group">
+                        <img id="modal-img-front" src="" class="w-full h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-50">
+                    </div>
+                    <!-- Achterkant -->
+                    <!-- AANGEPAST: overflow-hidden WEGGEHAALD -->
+                    <div id="modal-back-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 cursor-crosshair group">
+                        <img id="modal-img-back" src="" class="w-full h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center opacity-90 relative z-20 hover:z-50">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- === CONTACT MODAL === -->
-    <div id="contact-modal" class="modal fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex justify-center items-center p-4 text-center">
+    <div id="contact-modal" class="modal fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex justify-center items-center p-4 text-center">
         <div class="bg-[#FFEB3B] border-4 border-white w-full max-w-lg p-12 relative shadow-[15px_15px_0px_0px_rgba(50,50,50,1)]">
             <button onclick="closeContactModal()" class="absolute top-4 right-4 bg-black text-white w-8 h-8 flex items-center justify-center font-bold hover:rotate-90 transition-transform">X</button>
             <h2 class="text-4xl font-black uppercase mb-12 tracking-tighter underline decoration-4 decoration-black">CONTACT</h2>
@@ -178,7 +204,7 @@
         lucide.createIcons();
 
         // =================================================================
-        // *** CONFIGURATIE SECTIE - HIER JOUW PRODUCTEN AANPASSEN ***
+        // *** CONFIGURATIE SECTIE ***
         // =================================================================
         
         const PRODUCTEN = [
@@ -187,10 +213,10 @@
                 titel: "two kids playing with sand on a beach; an attempt",
                 kleur: "Licht Blauw",
                 prijs: "30.00",
-                bgClass: "bg-blue-200", // De achtergrondkleur in het grid
-                // ↓↓↓ HIER DE LINKS NAAR JOUW AFBEELDINGEN PLAATSEN ↓↓↓
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "kids.png"
+                bgClass: "bg-blue-200", 
+                modalBgClass: "bg-pink-200", // CONTRAST: Blauw shirt -> Roze achtergrond
+                afbeeldingVoorkant: "https://placehold.co/600x800/BFDBFE/000000/png?text=VOORKANT",
+                afbeeldingAchterkant: "https://placehold.co/600x800/BFDBFE/000000/png?text=ACHTERKANT"
             },
             {
                 id: 2,
@@ -198,9 +224,9 @@
                 kleur: "Roze",
                 prijs: "30.00",
                 bgClass: "bg-pink-200",
-                // ↓↓↓ HIER DE LINKS NAAR JOUW AFBEELDINGEN PLAATSEN ↓↓↓
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "kids.png"
+                modalBgClass: "bg-blue-200", // CONTRAST: Roze shirt -> Blauwe achtergrond
+                afbeeldingVoorkant: "https://placehold.co/600x800/FBCFE8/000000/png?text=VOORKANT",
+                afbeeldingAchterkant: "https://placehold.co/600x800/FBCFE8/000000/png?text=ACHTERKANT"
             },
             {
                 id: 3,
@@ -208,9 +234,9 @@
                 kleur: "Zwart",
                 prijs: "30.00",
                 bgClass: "bg-black",
-                // ↓↓↓ HIER DE LINKS NAAR JOUW AFBEELDINGEN PLAATSEN ↓↓↓
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "S.png"
+                modalBgClass: "bg-gray-100", // CONTRAST: Zwart shirt -> Off-white achtergrond
+                afbeeldingVoorkant: "https://placehold.co/600x800/000000/FFFFFF/png?text=VOORKANT",
+                afbeeldingAchterkant: "https://placehold.co/600x800/000000/FFFFFF/png?text=ACHTERKANT"
             },
             {
                 id: 4,
@@ -218,25 +244,23 @@
                 kleur: "Off-White",
                 prijs: "30.00",
                 bgClass: "bg-gray-100",
-                // ↓↓↓ HIER DE LINKS NAAR JOUW AFBEELDINGEN PLAATSEN ↓↓↓
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "S.png"
+                modalBgClass: "bg-black", // CONTRAST: Off-white shirt -> Zwart achtergrond
+                afbeeldingVoorkant: "https://placehold.co/600x800/F3F4F6/000000/png?text=VOORKANT",
+                afbeeldingAchterkant: "https://placehold.co/600x800/F3F4F6/000000/png?text=ACHTERKANT"
             }
         ];
 
         // =================================================================
-        // *** EINDE CONFIGURATIE - HIERONDER ALLEEN LOGICA ***
+        // *** LOGICA ***
         // =================================================================
 
-        // 1. GENERATE GRID
         const gridContainer = document.getElementById('product-grid');
         
         function renderGrid() {
             gridContainer.innerHTML = PRODUCTEN.map(prod => `
                 <div class="group cursor-pointer" onclick="openProductById(${prod.id})">
                     <div class="w-full aspect-[3/4] ${prod.bgClass} border-2 border-black mb-4 flex items-center justify-center relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:shadow-none transition-all">
-                        <img src="${prod.afbeeldingVoorkant}" alt="${prod.titel}" class="product-img">
-                        <div class="absolute top-2 left-2 bg-white/90 border border-black px-2 py-1 text-[10px] font-bold uppercase tracking-widest">${prod.kleur}</div>
+                        <img src="${prod.afbeeldingAchterkant}" alt="${prod.titel}" class="product-img">
                     </div>
                     <h3 class="font-bold text-xs uppercase leading-tight group-hover:bg-black group-hover:text-[#FFEB3B] inline px-1 decoration-clone transition-colors">
                         ${prod.titel}
@@ -244,13 +268,12 @@
                 </div>
             `).join('');
         }
-        renderGrid(); // Start de motor
+        renderGrid(); 
 
-        // 2. MODAL LOGIC
         let activeProductId = null;
         
-        // Basis classes voor modal wrapper
-        const baseModalWrapperClass = "w-full lg:w-2/3 p-6 md:p-12 border-b-4 lg:border-b-0 lg:border-r-4 border-black overflow-y-auto transition-colors duration-300";
+        // AANGEPAST: 'no-scrollbar' class toegevoegd aan de base class
+        const baseModalWrapperClass = "flex-grow w-full p-4 overflow-y-auto no-scrollbar transition-colors duration-300";
 
         function openProductById(id) {
             const product = PRODUCTEN.find(p => p.id === id);
@@ -258,14 +281,13 @@
             
             activeProductId = id;
 
-            // Vul data in
             document.getElementById('modal-title').innerText = product.titel;
             
             document.getElementById('modal-img-front').src = product.afbeeldingVoorkant;
             document.getElementById('modal-img-back').src = product.afbeeldingAchterkant;
 
-            // *** HIER WORDT DE ACHTERGRONDKLEUR VAN DE HELE LINKERKANT INGESTELD ***
-            document.getElementById('modal-images-wrapper').className = `${baseModalWrapperClass} ${product.bgClass}`;
+            // Achtergrondkleur instellen
+            document.getElementById('modal-images-wrapper').className = `${baseModalWrapperClass} ${product.modalBgClass}`;
             
             // Mail knop
             const subject = encodeURIComponent(`Interesse: ${product.titel} [${product.kleur}]`);
@@ -281,12 +303,10 @@
         function closeProductModal() {
             document.getElementById('product-modal').classList.remove('active');
             document.body.style.overflow = 'auto';
-            // Reset zoom
             resetZoom('modal-img-front');
             resetZoom('modal-img-back');
         }
 
-        // 4. CONTACT MODAL
         function openContactModal() {
             const modal = document.getElementById('contact-modal');
             modal.classList.add('active');
@@ -297,7 +317,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // 5. ZOOM LOGICA (Improved)
         function setupZoom(containerId, imgId) {
             const container = document.getElementById(containerId);
             const img = document.getElementById(imgId);
@@ -310,7 +329,7 @@
                 const y = e.clientY - rect.top;
                 
                 img.style.transformOrigin = `${x}px ${y}px`;
-                img.style.transform = "scale(2.2)"; // Iets minder extreme zoom voor scherpte
+                img.style.transform = "scale(2.5)"; // AANGEPAST: Zoom iets sterker gemaakt
             });
 
             container.addEventListener('mouseleave', () => {
@@ -326,10 +345,11 @@
             }
         }
 
+        // Initialize Zoom listeners
         setupZoom('modal-front-container', 'modal-img-front');
         setupZoom('modal-back-container', 'modal-img-back');
 
-        // 6. GENERAL UI
+
         function toggleManifesto() {
             const title = document.getElementById('title-block');
             const mani = document.getElementById('manifesto-block');
@@ -351,13 +371,11 @@
             document.getElementById('collection-menu').classList.toggle('hidden');
         }
 
-        // Sluit modals bij klik buiten content
         window.onclick = (e) => {
             if (e.target.id === 'product-modal') closeProductModal();
             if (e.target.id === 'contact-modal') closeContactModal();
         }
 
-        // Clock
         setInterval(() => {
             const now = new Date();
             const el = document.getElementById('live-clock');
@@ -367,4 +385,3 @@
     </script>
 </body>
 </html>
-
