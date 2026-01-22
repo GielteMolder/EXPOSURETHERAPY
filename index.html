@@ -11,16 +11,13 @@
         /* --- CORE STYLING --- */
         body { 
             font-family: 'Courier New', Courier, monospace; 
-            /* Strakke zwarte pijl als cursor */
             cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2V18L6.5 13.5L11 22L14 20.5L9.5 12L16 12L2 2Z' fill='black' stroke='white' stroke-width='1'/%3E%3C/svg%3E"), auto;
         }
 
         a, button, .cursor-pointer { 
-            /* Handje cursor voor interactie */
             cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 2V14H6V16H4V20H6V22H18V20H20V16H18V14H15V2H9ZM11 4H13V14H15V16H18V20H6V16H9V14H11V4Z' fill='black' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E"), pointer;
         }
         
-        /* Verberg scrollbars maar behoud functionaliteit */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -43,8 +40,18 @@
         .animate-marquee:hover { animation-play-state: paused; }
 
         /* Modal Transitions */
-        .modal { transition: opacity 0.2s ease, visibility 0.2s; opacity: 0; visibility: hidden; pointer-events: none; }
-        .modal.active { opacity: 1; visibility: visible; pointer-events: auto; }
+        .modal { 
+            transition: opacity 0.2s ease, visibility 0.2s; 
+            opacity: 0; 
+            visibility: hidden; 
+            pointer-events: none; 
+            display: flex; /* Always flex but hidden */
+        }
+        .modal.active { 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: auto; 
+        }
 
         /* Grid Product Effect */
         .product-img {
@@ -54,33 +61,39 @@
         }
         .group:hover .product-img { transform: scale(1.02) rotate(1deg); }
 
-        /* Utility Classes */
-        .hidden-text { display: none; }
-        .visible-text { display: block; }
-
         /* Noise Overlay */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 30; opacity: 0.06;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
+
+        /* Utility Classes */
+        .hidden-text { display: none; }
+        .visible-text { display: block; }
+
+        /* Fix Manifesto positioning */
+        #manifesto-block {
+            max-width: 90vw;
+            width: 600px;
+        }
     </style>
 </head>
-<body class="bg-[#FFEB3B] text-black antialiased no-scrollbar relative">
+<body class="bg-[#FFEB3B] text-black antialiased no-scrollbar relative selection:bg-black selection:text-[#FFEB3B]">
 
     <div class="noise-overlay"></div>
 
     <!-- === LANDING === -->
     <section id="welcome" class="h-screen w-full flex flex-col justify-center items-center relative p-6 border-b-4 border-black text-center">
-        <div class="z-10 cursor-pointer select-none max-w-2xl" onclick="toggleManifesto()">
+        <div class="z-10 cursor-pointer select-none" onclick="toggleManifesto()">
             <div id="title-block" class="visible-text">
                 <h1 class="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none hover:scale-105 transition-transform duration-300">
                     EXPOSURE<br>THERAPY
                 </h1>
                 <p class="text-sm md:text-xl font-bold tracking-[0.3em] uppercase mt-6">GIEL TE MOLDER</p>
             </div>
-            <!-- AANGEPAST: Shadow is nu zwart (rgba(0,0,0,1)) -->
-            <div id="manifesto-block" class="hidden-text bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-white transition-all">
+            
+            <div id="manifesto-block" class="hidden-text bg-black text-[#FFEB3B] p-8 -rotate-1 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-white transition-all mx-auto">
                 <p class="text-lg md:text-xl font-bold leading-relaxed lowercase text-left">
                     "hallo!<br><br>
                     soms ben ik een beetje ontevreden met de dingen die uit mijn vingers komen.<br>
@@ -94,7 +107,7 @@
             </div>
         </div>
         <div class="absolute bottom-10 cursor-pointer flex flex-col items-center group" onclick="scrollToShop()">
-            <p class="text-[10px] font-bold uppercase mb-2 tracking-widest group-hover:underline">ENTER</p>
+            <p class="text-[10px] font-bold uppercase mb-2 tracking-widest group-hover:underline">ENTRÉ</p>
             <i data-lucide="chevron-down" class="w-6 h-6 animate-bounce-slow"></i>
         </div>
     </section>
@@ -133,10 +146,9 @@
     </section>
 
     <!-- === PRODUCT MODAL === -->
-    <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4">
+    <div id="product-modal" class="modal fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm justify-center items-center p-4">
         
-        <!-- Modal Container: overflow-visible voor de zoom -->
-        <div class="bg-white border-4 border-black w-full max-w-4xl flex flex-col relative overflow-visible shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]" style="max-height: 90vh;">
+        <div class="bg-white border-4 border-black w-full max-w-4xl h-full max-h-[90vh] flex flex-col relative overflow-visible shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
             
             <!-- Header (Titel & Knoppen) -->
             <div class="flex justify-between items-center p-3 md:p-4 border-b-4 border-black bg-white z-30 gap-4 overflow-hidden relative shrink-0">
@@ -152,17 +164,17 @@
             </div>
 
             <!-- Content Area -->
-            <div id="modal-images-wrapper" class="flex-grow w-full p-4 overflow-y-auto no-scrollbar transition-colors duration-300 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full min-h-[400px] items-center">
+            <div id="modal-images-wrapper" class="flex-grow w-full p-4 overflow-hidden relative z-10 flex flex-col">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full items-center min-h-0">
                     
                     <!-- Voorkant Wrapper -->
-                    <div id="modal-front-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 cursor-crosshair group">
-                        <img id="modal-img-front" src="" class="w-full h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-[100] hover:scale-[1.8]">
+                    <div id="modal-front-container" class="h-full flex items-center justify-center relative cursor-crosshair group overflow-hidden min-h-0">
+                        <img id="modal-img-front" src="" class="max-w-full max-h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-[100] hover:scale-[1.8]">
                     </div>
                     
                     <!-- Achterkant Wrapper -->
-                    <div id="modal-back-container" class="aspect-[3/4] flex items-center justify-center relative transition-colors duration-500 cursor-crosshair group">
-                        <img id="modal-img-back" src="" class="w-full h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-[100] hover:scale-[1.8]">
+                    <div id="modal-back-container" class="h-full flex items-center justify-center relative cursor-crosshair group overflow-hidden min-h-0">
+                        <img id="modal-img-back" src="" class="max-w-full max-h-full object-contain drop-shadow-xl transition-transform duration-100 origin-center relative z-20 hover:z-[100] hover:scale-[1.8]">
                     </div>
 
                 </div>
@@ -171,7 +183,7 @@
     </div>
 
     <!-- === CONTACT MODAL === -->
-    <div id="contact-modal" class="modal fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex justify-center items-center p-4 text-center">
+    <div id="contact-modal" class="modal fixed inset-0 z-[60] bg-black/95 backdrop-blur-md justify-center items-center p-4 text-center">
         <div class="bg-[#FFEB3B] border-4 border-white w-full max-w-lg p-12 relative shadow-[15px_15px_0px_0px_rgba(0,0,0,1)]">
             <button onclick="closeContactModal()" class="absolute top-4 right-4 bg-black text-white w-8 h-8 flex items-center justify-center font-bold hover:rotate-90 transition-transform">X</button>
             <h2 class="text-4xl font-black uppercase mb-12 tracking-tighter underline decoration-4 decoration-black">CONTACT</h2>
@@ -192,47 +204,46 @@
         lucide.createIcons();
 
         // --- DATA ---
-        
         const COLLECTIE_001 = [
             {
                 id: 101,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Light Blue",
+                kleur: "Pastel Pink",
                 prijs: "35.00",
-                bgClass: "bg-[#B0E0E6]", // Light Blue
-                modalBgClass: "bg-[#FFB6C1]", // Contrast: Light Pink
-                afbeeldingVoorkant: "kidsvoor.png",
-                afbeeldingAchterkant: "kidsachter.png"
+                bgClass: "bg-[#FFD1DC]", 
+                modalBgClass: "bg-[#FFD1DC]", 
+                afbeeldingVoorkant: "blauw_voor.png",
+                afbeeldingAchterkant: "blauw_achter.png"
             },
             {
                 id: 102,
                 titel: "two kids playing with sand on a beach; an attempt",
-                kleur: "Light Pink",
+                kleur: "Pastel Blue",
                 prijs: "35.00",
-                bgClass: "bg-[#FFB6C1]", // Light Pink
-                modalBgClass: "bg-[#B0E0E6]", // Contrast: Light Blue
-                afbeeldingVoorkant: "kidsvoorroze.png",
-                afbeeldingAchterkant: "kidsachterroze.png"
+                bgClass: "bg-[#AEC6CF]", 
+                modalBgClass: "bg-[#AEC6CF]", 
+                afbeeldingVoorkant: "roze_voor.png",
+                afbeeldingAchterkant: "roze_achter.png"
             },
             {
                 id: 103,
-                titel: "triangleman surfing on the waves of abstraction",
-                kleur: "Antraciet",
+                titel: "Lillies",
+                kleur: "Pastel Purple",
                 prijs: "35.00",
-                bgClass: "bg-[#2E2E2E]", // Antraciet
-                modalBgClass: "bg-[#D2B48C]", // Contrast: Sand
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "S.png"
+                bgClass: "bg-[#E6E6FA]", 
+                modalBgClass: "bg-[#E6E6FA]", 
+                afbeeldingVoorkant: "yellow_front.png",
+                afbeeldingAchterkant: "yellow_lillies.png"
             },
             {
                 id: 104,
-                titel: "triangleman surfing on the waves of abstraction",
-                kleur: "Sand",
+                titel: "Lillies",
+                kleur: "Pastel Yellow",
                 prijs: "35.00",
-                bgClass: "bg-[#D2B48C]", // Sand
-                modalBgClass: "bg-[#2E2E2E]", // Contrast: Antraciet
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "S.png"
+                bgClass: "bg-[#FFFACD]", 
+                modalBgClass: "bg-[#FFFACD]", 
+                afbeeldingVoorkant: "purple_front.png",
+                afbeeldingAchterkant: "purple_lillies.png"
             }
         ];
 
@@ -243,49 +254,17 @@
                 kleur: "Grijs",
                 prijs: "35.00",
                 bgClass: "bg-[#E5E5E5]", 
-                modalBgClass: "bg-[#A3A3A3]", 
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "EXPOTHERAPY.png"
-            },
-            {
-                id: 202,
-                titel: "coming soon?",
-                kleur: "Grijs",
-                prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", 
-                modalBgClass: "bg-[#A3A3A3]", 
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "EXPOTHERAPY.png"
-            },
-            {
-                id: 203,
-                titel: "coming soon?",
-                kleur: "Grijs",
-                prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", 
-                modalBgClass: "bg-[#A3A3A3]", 
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "EXPOTHERAPY.png"
-            },
-            {
-                id: 204,
-                titel: "coming soon?",
-                kleur: "Grijs",
-                prijs: "35.00",
-                bgClass: "bg-[#E5E5E5]", 
-                modalBgClass: "bg-[#A3A3A3]", 
-                afbeeldingVoorkant: "EXPOTHERAPY.png",
-                afbeeldingAchterkant: "EXPOTHERAPY.png"
+                modalBgClass: "bg-[#E5E5E5]", 
+                afbeeldingVoorkant: "EXPO THERAPY.png",
+                afbeeldingAchterkant: "EXPO THERAPY.png"
             }
         ];
 
         let huidigeProducten = COLLECTIE_001; 
 
         // --- APP LOGICA ---
-
         const gridContainer = document.getElementById('product-grid');
         const collectionDisplay = document.getElementById('current-collection-display');
-        const collectionMenu = document.getElementById('collection-menu');
         
         function renderGrid() {
             gridContainer.innerHTML = huidigeProducten.map(prod => `
@@ -313,20 +292,19 @@
             toggleCollectionMenu();
         }
 
-        let activeProductId = null;
-        const baseModalWrapperClass = "flex-grow w-full p-4 overflow-y-auto no-scrollbar transition-colors duration-300 relative z-10";
-
         function openProductById(id) {
             const product = huidigeProducten.find(p => p.id === id);
             if (!product) return;
             
-            activeProductId = id;
-
             document.getElementById('modal-title').innerText = product.titel;
             document.getElementById('modal-img-front').src = product.afbeeldingVoorkant;
             document.getElementById('modal-img-back').src = product.afbeeldingAchterkant;
-            document.getElementById('modal-images-wrapper').className = `${baseModalWrapperClass} ${product.modalBgClass}`;
             
+            // Apply background color to wrapper
+            const wrapper = document.getElementById('modal-images-wrapper');
+            // Reset background classes and maintain layout classes
+            wrapper.className = "flex-grow w-full p-4 overflow-hidden relative z-10 flex flex-col " + product.modalBgClass;
+
             const subject = encodeURIComponent(`Interesse: ${product.titel} [${product.kleur}]`);
             const body = encodeURIComponent(`Hola Giel,\n\nIk wil dit stuk graag claimen:\nWerk: ${product.titel}\nKleur: ${product.kleur}\nMaat: [S/M/L/XL]\nVoorstel:\n\nGroenten,\n\n[uwen naam]`);
             document.getElementById('mail-btn').href = `mailto:gielmolder@gmail.com?subject=${subject}&body=${body}`;
@@ -344,8 +322,7 @@
         }
 
         function openContactModal() {
-            const modal = document.getElementById('contact-modal');
-            modal.classList.add('active');
+            document.getElementById('contact-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         function closeContactModal() {
@@ -419,4 +396,3 @@
     </script>
 </body>
 </html>
-
